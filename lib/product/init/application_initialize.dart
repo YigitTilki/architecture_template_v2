@@ -1,0 +1,33 @@
+import 'dart:async';
+
+import 'package:architecture_template/product/init/config/app_environment.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_logger/easy_logger.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kartal/kartal.dart';
+import 'package:logger/logger.dart';
+
+@immutable
+final class ApplicationInitialize {
+  Future<void> make() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await runZonedGuarded(_initialize, (error, stack) {
+      Logger().e(error);
+    });
+  }
+
+  static Future<void> _initialize() async {
+    await EasyLocalization.ensureInitialized();
+    EasyLocalization.logger.enableLevels = [LevelMessages.error];
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    await DeviceUtility.instance.initPackageInfo();
+
+    FlutterError.onError = (details) {
+      Logger().e(details.exceptionAsString());
+    };
+
+    AppEnvironment.general();
+  }
+}
