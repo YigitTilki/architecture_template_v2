@@ -42,12 +42,19 @@ dependencies:
   gen:
     path: module/gen
 
+  common:
+    path: module/common
+    
+  auto_route: ^9.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   very_good_analysis: ^6.0.0
   flutter_launcher_icons: "^0.14.1"
+  build_runner: ^2.4.13
+  auto_route_generator: ^9.0.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
