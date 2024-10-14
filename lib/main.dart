@@ -5,6 +5,7 @@ import 'package:architecture_template/product/init/theme/custom_light_theme.dart
 import 'package:architecture_template/product/navigation/app_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:widgets/widgets.dart';
 
 Future<void> main() async {
   await ApplicationInitialize().make();
@@ -20,6 +21,7 @@ final class _MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
+      builder: CustomResponsive.build,
       theme: CustomLightTheme().themeData,
       darkTheme: CustomDarkTheme().themeData,
       localizationsDelegates: context.localizationDelegates,

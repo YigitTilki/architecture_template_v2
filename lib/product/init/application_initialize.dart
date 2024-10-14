@@ -13,12 +13,15 @@ final class ApplicationInitialize {
   Future<void> make() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    await runZonedGuarded(_initialize, (error, stack) {
-      Logger().e(error);
-    });
+    await runZonedGuarded<Future<void>>(
+      _initialize,
+      (error, stack) {
+        Logger().e(error);
+      },
+    );
   }
 
-  static Future<void> _initialize() async {
+  Future<void> _initialize() async {
     await EasyLocalization.ensureInitialized();
     EasyLocalization.logger.enableLevels = [LevelMessages.error];
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -28,6 +31,14 @@ final class ApplicationInitialize {
       Logger().e(details.exceptionAsString());
     };
 
+    _productEnvironmentWithContainer();
+
+    // Depedency initialize
+    // envied
+  }
+
+  /// DO NOT CHANGE THIS METHOD
+  void _productEnvironmentWithContainer() {
     AppEnvironment.general();
   }
 }
