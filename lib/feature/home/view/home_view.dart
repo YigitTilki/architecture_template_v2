@@ -1,9 +1,7 @@
 import 'package:architecture_template/feature/home/view/mixin/home_view_mixin.dart';
-import 'package:architecture_template/product/widget/project_network_image.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:widgets/widgets.dart';
+import 'package:gen/gen.dart';
 
 part 'widgets/home_app_bar.dart';
 
@@ -16,19 +14,33 @@ final class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> with HomeViewMixin {
+  List<User> _users = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          SuccessDialog.show(title: 'title', context: context);
+        onPressed: () async {
+          _users = await loginService.users();
+          setState(() {});
+          //SuccessDialog.show(title: 'title', context: context);
         },
       ),
       appBar: const _HomeAppBar(),
       body: Center(
         child: Column(
           children: [
-            AdaptAllView(
+            Expanded(
+              child: ListView.builder(
+                itemCount: _users.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(_users[index].userId.toString()),
+                    subtitle: Text(_users[index].body.toString()),
+                  );
+                },
+              ),
+            ),
+            /*  AdaptAllView(
               phone: Text(
                 ''.ext.version,
                 style: context.general.textTheme.bodySmall,
@@ -42,7 +54,7 @@ class _HomeViewState extends State<HomeView> with HomeViewMixin {
                 style: context.general.textTheme.headlineLarge,
               ),
             ),
-            const ProjectNetworkImage(url: 'https://picsum.photos/200/300'),
+            const ProjectNetworkImage(url: 'https://picsum.photos/200/300'), */
             /* ElevatedButton(
               onPressed: () {},
               child: Text(AppEnvironmentItems.baseUrl.value),
