@@ -26,8 +26,8 @@ dependencies:
   vexana: ^5.0.1
 
   #State
-  flutter_riverpod: ^2.5.1
-  
+  flutter_bloc: ^8.1.6
+
   #Config
   easy_localization: ^3.0.7
 
@@ -37,6 +37,8 @@ dependencies:
   kartal: ^4.1.0
   google_fonts: ^6.2.1
 
+  #Nav
+  auto_route: ^9.2.2
 
   widgets:
     path: module/widgets
@@ -47,7 +49,6 @@ dependencies:
   common:
     path: module/common
     
-  auto_route: ^9.2.2
 
 dev_dependencies:
   flutter_test:
